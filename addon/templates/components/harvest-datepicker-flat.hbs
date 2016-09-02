@@ -1,0 +1,32 @@
+<div class="{{prefix}}-header">
+  <div class="{{prefix}}-top-panel">
+    <div class="{{prefix}}-navigation">
+      <button {{action "prevMonth"}}>&lt;</button>
+      <button>{{monthName}} {{year}}</button>
+      <button {{action "nextMonth"}}>&gt;</button>
+    </div>
+  </div>
+</div>
+<table>
+  <tbody class="{{prefix}}-days">
+  <tr class="{{prefix}}-day-letters">
+    {{#each daysOfWeek as |day|}}
+      <td align="right">{{day.name}}</td>
+    {{/each}}
+  </tr>
+  </tbody>
+  <tbody class="{{prefix}}-day-list">
+  {{#each weeks as |week|}}
+    <tr>
+      {{#each week as |day index|}}
+        {{harvest-day
+            model=day
+            prefix=prefix
+            selectedDate=selectedDate
+            select=(action 'selectDay')
+        }}
+      {{/each}}
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

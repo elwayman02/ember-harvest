@@ -1,0 +1,17 @@
+{{#basic-dropdown as |dropdown|}}
+  {{#dropdown.trigger}}
+    {{#if hasBlock}}
+      {{yield}}
+    {{else}}
+      <input value={{formattedDate}}>
+    {{/if}}
+  {{/dropdown.trigger}}
+  {{#dropdown.content}}
+    {{harvest-datepicker-flat
+        prefix=prefix
+        selectedDate=selectedDate
+        select=(action 'select')
+        weekStart=weekStart
+    }}
+  {{/dropdown.content}}
+{{/basic-dropdown}}
