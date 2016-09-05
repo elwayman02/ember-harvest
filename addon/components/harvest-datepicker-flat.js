@@ -7,7 +7,7 @@ import Months from '../utils/harvest-months';
 export default Component.extend({
   layout,
 
-  classNames: ['harvest-date-picker'],
+  classNameBindings: ['datepickerClass'],
 
   prefix: 'eh',
 
@@ -16,6 +16,10 @@ export default Component.extend({
   viewDate: null,
 
   months: Months,
+
+  datepickerClass: computed('prefix', function () {
+    return `${this.get('prefix')}-datepicker`;
+  }),
 
   init() {
     this._super(...arguments);
