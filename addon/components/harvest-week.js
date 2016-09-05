@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from 'ember-component';
 import layout from '../templates/components/harvest-week';
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNames: ['harvest-week'],
   tagName: 'tr',
