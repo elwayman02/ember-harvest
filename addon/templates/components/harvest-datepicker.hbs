@@ -3,14 +3,17 @@
     {{#if hasBlock}}
       {{yield}}
     {{else}}
-      <input value={{formattedDate}}>
+      <input class="{{inputClass}}" value={{formattedDate}}>
     {{/if}}
   {{/dropdown.trigger}}
   {{#dropdown.content}}
     {{harvest-datepicker-flat
+        isWeekpicker=isWeekpicker
         prefix=prefix
         selectedDate=selectedDate
-        select=(action 'select')
+        selectedRange=selectedRange
+        selectDay=(action 'selectDay')
+        selectWeek=(action 'selectWeek')
         weekStart=weekStart
     }}
   {{/dropdown.content}}

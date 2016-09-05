@@ -19,6 +19,8 @@ export default Component.extend({
 
   selectedDate: null,
 
+  selectedRange: null,
+
   viewDate: null,
 
   year: computed.readOnly('viewDate.year'),

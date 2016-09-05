@@ -10,8 +10,10 @@
   {{#each weeks as |week|}}
     {{harvest-week
         prefix=prefix
-        select=(action select)
+        selectDay=(action selectDay)
+        selectWeek=(action selectWeek)
         selectedDate=selectedDate
+        selectedRange=selectedRange
         week=week}}
   {{/each}}
   </tbody>

@@ -9,7 +9,9 @@
 </div>
 {{harvest-calendar-view
     prefix=prefix
-    select=(action 'selectDay')
+    selectDay=(action 'selectDay')
+    selectWeek=(action 'selectWeek')
     selectedDate=selectedDate
+    selectedRange=selectedRange
     viewDate=viewDate
 }}

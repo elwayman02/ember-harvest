@@ -9,10 +9,10 @@ export default Component.extend({
 
   prefix: 'eh',
 
-  classNameBindings: ['outOfRangeClass', 'daySelectedClass', 'todayClass', 'weekendClass'],
+  classNameBindings: ['outOfRangeClass', 'selectedClass', 'todayClass', 'weekendClass'],
 
-  daySelectedClass: computed('daySelected', 'prefix', function () {
-    return this.get('daySelected') ? `${this.get('prefix')}-day-selected` : '';
+  selectedClass: computed('daySelected', 'prefix', function () {
+    return this.get('daySelected') ? `${this.get('prefix')}-selected-day` : '';
   }),
 
   outOfRangeClass: computed('model.inRange', 'prefix', function () {
