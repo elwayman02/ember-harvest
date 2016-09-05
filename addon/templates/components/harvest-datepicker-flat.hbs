@@ -17,16 +17,11 @@
   </tbody>
   <tbody class="{{prefix}}-day-list">
   {{#each weeks as |week|}}
-    <tr>
-      {{#each week as |day index|}}
-        {{harvest-day
-            model=day
-            prefix=prefix
-            selectedDate=selectedDate
-            select=(action 'selectDay')
-        }}
-      {{/each}}
-    </tr>
+    {{harvest-week
+        prefix=prefix
+        select=(action 'selectDay')
+        selectedDate=selectedDate
+        week=week}}
   {{/each}}
   </tbody>
 </table>

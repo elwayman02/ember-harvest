@@ -175,9 +175,10 @@ export default Component.extend({
   _selectDate(day) {
     let date = new Date(day.year, day.month, day.date);
 
-    this.set('selectedDate', date);
     if (this.get('select')) {
       this.get('select')(date);
+    } else {
+      this.set('selectedDate', date);
     }
   },
 

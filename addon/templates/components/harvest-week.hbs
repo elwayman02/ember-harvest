@@ -1,0 +1,8 @@
+{{#each week as |day index|}}
+  {{harvest-day
+      model=day
+      prefix=prefix
+      selectedDate=selectedDate
+      select=(action select)
+  }}
+{{/each}}
