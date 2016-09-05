@@ -1,0 +1,15 @@
+@import 'ember-basic-dropdown';
+
+body {
+  height: 100vh;
+  margin: 0;
+  width: 100vh;
+}
+
+main {
+  padding: 8px;
+}
+
+.harvest-day-selected {
+  font-weight: bold;
+}

@@ -1,0 +1,15 @@
+<div class="{{prefix}}-header">
+  <div class="{{prefix}}-top-panel">
+    <div class="{{prefix}}-navigation">
+      <button {{action "prevMonth"}}>&lt;</button>
+      <button>{{monthName}} {{year}}</button>
+      <button {{action "nextMonth"}}>&gt;</button>
+    </div>
+  </div>
+</div>
+{{harvest-calendar-view
+    prefix=prefix
+    select=(action 'selectDay')
+    selectedDate=selectedDate
+    viewDate=viewDate
+}}
