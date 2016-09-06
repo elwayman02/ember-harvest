@@ -19,7 +19,7 @@ export default Component.extend({
 
   selectedRange: null,
 
-  viewDate: null,
+  displayDate: null,
 
   weekStart: 0,
 
@@ -36,26 +36,26 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     let selectedDate = this.get('selectedDate');
-    this.set('viewDate', DateObject.create());
+    this.set('displayDate', DateObject.create());
     if (selectedDate) {
-      this.setViewDate(selectedDate);
+      this.setdisplayDate(selectedDate);
     } else {
       let date = new Date();
       this.set('selectedDate', date);
-      this.setViewDate(date);
+      this.setdisplayDate(date);
     }
   },
 
-  year: computed.readOnly('viewDate.year'),
+  displayYear: computed.readOnly('displayDate.year'),
 
-  month: computed.readOnly('viewDate.month'),
+  displayMonth: computed.readOnly('displayDate.month'),
 
-  monthName: computed('month', 'months', function () {
-    return this.get('months')[this.get('month')].name;
+  displayMonthName: computed('displayMonth', 'months', function () {
+    return this.get('months')[this.get('displayMonth')].name;
   }),
 
-  setViewDate(date) {
-    this.set('viewDate.date', date);
+  setdisplayDate(date) {
+    this.set('displayDate.date', date);
   },
 
   _selectDate(day) {
@@ -69,7 +69,7 @@ export default Component.extend({
   },
 
   _selectMonth(month) {
-    this.get('viewDate').setMonth(month);
+    this.get('displayDate').setMonth(month);
   },
 
   _selectWeek(week) {
@@ -81,19 +81,19 @@ export default Component.extend({
   },
 
   _previousMonth() {
-    this.get('viewDate').decrementMonth();
+    this.get('displayDate').decrementMonth();
   },
 
   _nextMonth() {
-    this.get('viewDate').incrementMonth();
+    this.get('displayDate').incrementMonth();
   },
 
   _previousYear() {
-    this.get('viewDate').decrementYear();
+    this.get('displayDate').decrementYear();
   },
 
   _nextYear() {
-    this.get('viewDate').incrementYear();
+    this.get('displayDate').incrementYear();
   },
 
   actions: {

@@ -18,7 +18,7 @@ export default Component.extend({
 
   selectedYear: null,
 
-  viewYear: null,
+  displayYear: null,
 
   init() {
     this._super(...arguments);
@@ -27,7 +27,7 @@ export default Component.extend({
       let date = new Date();
       this.selectMonth(this.get('selectedMonth') || date.getMonth(), this.get('selectedYear') || date.getFullYear());
     }
-    this.set('viewYear', YearObject.create({
+    this.set('displayYear', YearObject.create({
       year: this.get('selectedYear')
     }));
   },
@@ -40,18 +40,18 @@ export default Component.extend({
   },
 
   _decrementYear() {
-    this.get('viewYear').decrementYear();
+    this.get('displayYear').decrementYear();
   },
 
   _incrementYear() {
-    this.get('viewYear').incrementYear();
+    this.get('displayYear').incrementYear();
   },
 
   actions: {
     select(month) {
-      this.selectMonth(month, this.get('viewYear.year'));
+      this.selectMonth(month, this.get('displayYear.year'));
       if (this.get('select')) {
-        this.get('select')(this.get('selectedMonth'), this.get('viewYear.year'));
+        this.get('select')(this.get('selectedMonth'), this.get('displayYear.year'));
       }
     },
 

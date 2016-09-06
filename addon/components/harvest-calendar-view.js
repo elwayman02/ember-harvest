@@ -29,11 +29,11 @@ export default Component.extend({
 
   selectedRange: null,
 
-  viewDate: null,
+  displayDate: null,
 
-  year: computed.readOnly('viewDate.year'),
+  year: computed.readOnly('displayDate.year'),
 
-  month: computed.readOnly('viewDate.month'),
+  month: computed.readOnly('displayDate.month'),
 
   calendarClass: computed('prefix', function () {
     return `${this.get('prefix')}-calendar`;
@@ -42,8 +42,8 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    if (!this.get('viewDate')) {
-      this.set('viewDate', DateObject.create());
+    if (!this.get('displayDate')) {
+      this.set('displayDate', DateObject.create());
     }
   },
 
