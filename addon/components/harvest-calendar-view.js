@@ -2,12 +2,16 @@ import Component from 'ember-component';
 import EmberObject from 'ember-object';
 import computed from 'ember-computed';
 import { A } from 'ember-array/utils';
+import DateObject from '../utils/harvest-date';
 import Months from '../utils/harvest-months';
 import layout from '../templates/components/harvest-calendar-view';
 
 export default Component.extend({
   layout,
   prefix: 'eh',
+  tagName: 'table',
+
+  classNameBindings: ['calendarClass'],
 
   days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
 
@@ -26,6 +30,18 @@ export default Component.extend({
   year: computed.readOnly('viewDate.year'),
 
   month: computed.readOnly('viewDate.month'),
+
+  calendarClass: computed('prefix', function () {
+    return `${this.get('prefix')}-calendar`;
+  }),
+
+  init() {
+    this._super(...arguments);
+
+    if (!this.get('viewDate')) {
+      this.set('viewDate', DateObject.create());
+    }
+  },
 
   daysOfWeek: computed('weekStart', 'days', function () {
     let array = A();
@@ -108,5 +124,18 @@ export default Component.extend({
     }
 
     return startDay;
-  })
+  }),
+
+  actions: {
+    selectDay(day) {
+      if (this.get('selectDay')) {
+        this.get('selectDay')(day);
+      }
+    },
+    selectWeek(week) {
+      if (this.get('selectWeek')) {
+        this.get('selectWeek')(week);
+      }
+    }
+  }
 });

@@ -12,13 +12,4 @@ test('it renders', function(assert) {
   this.render(hbs`{{harvest-week}}`);
 
   assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#harvest-week}}
-      template block text
-    {{/harvest-week}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });
