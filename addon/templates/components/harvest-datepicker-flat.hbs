@@ -5,9 +5,9 @@
     toggleView=(action 'toggleView')
 }}
   {{#if showMonthView}}
-    {{year}}
+    {{displayYear}}
   {{else}}
-    {{monthName}} {{year}}
+    {{displayMonthName}} {{displayYear}}
   {{/if}}
 {{/harvest-picker-header}}
 {{harvest-calendar-view
@@ -17,7 +17,7 @@
     selectWeek=(action 'selectWeek')
     selectedDate=selectedDate
     selectedRange=selectedRange
-    viewDate=viewDate
+    displayDate=displayDate
     weekStart=weekStart
 }}
 {{harvest-month-view
