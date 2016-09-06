@@ -1,17 +1,18 @@
 {
   "name": "ember-harvest",
   "version": "0.0.0",
-  "description": "Date, Month, Time, & Week pickers for Ember",
+  "description": "Date, Week, & Month pickers for Ember",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
     "build": "ember build",
+    "deploy": "ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\"; git push; git checkout -",
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "https://github.com/elwayman02/ember-harvest",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -23,6 +24,7 @@
     "ember-cli-app-version": "^2.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-eslint": "3.0.0",
+    "ember-cli-github-pages": "0.1.2",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-inject-live-reload": "^1.4.0",
     "ember-cli-qunit": "^3.0.0",
@@ -39,7 +41,8 @@
   "keywords": [
     "ember-addon",
     "datepicker",
-    "timepicker"
+    "weekpicker",
+    "monthpicker"
   ],
   "dependencies": {
     "ember-basic-dropdown": "0.13.0-beta.3",
