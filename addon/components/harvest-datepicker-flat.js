@@ -110,7 +110,7 @@ export default Component.extend({
       this._selectWeek(week);
     },
 
-    toggleMonthView() {
+    toggleView() {
       this.toggleProperty('showMonthView');
     },
 
