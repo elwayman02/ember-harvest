@@ -7,11 +7,15 @@ import Months from '../utils/harvest-months';
 export default Component.extend({
   layout,
 
-  classNameBindings: ['datepickerClass'],
+  classNameBindings: ['datepickerClass', 'weekpickerClass'],
 
   prefix: 'eh',
 
+  isWeekpicker: false,
+
   selectedDate: null,
+
+  selectedRange: null,
 
   viewDate: null,
 
@@ -19,6 +23,10 @@ export default Component.extend({
 
   datepickerClass: computed('prefix', function () {
     return `${this.get('prefix')}-datepicker`;
+  }),
+
+  weekpickerClass: computed('prefix', 'isWeekpicker', function () {
+    return this.get('isWeekpicker') ? `${this.get('prefix')}-weekpicker` : '';
   }),
 
   init() {
@@ -49,10 +57,18 @@ export default Component.extend({
   _selectDate(day) {
     let date = new Date(day.year, day.month, day.date);
 
-    if (this.get('select')) {
-      this.get('select')(date);
+    if (this.get('selectDay')) {
+      this.get('selectDay')(date);
     } else {
       this.set('selectedDate', date);
+    }
+  },
+
+  _selectWeek(week) {
+    if (this.get('selectWeek')) {
+      this.get('selectWeek')(week);
+    } else {
+      this.set('selectedRange', week);
     }
   },
 
@@ -67,6 +83,10 @@ export default Component.extend({
   actions: {
     selectDay(day) {
       this._selectDate(day)
+    },
+
+    selectWeek(week) {
+      this._selectWeek(week);
     },
 
     prevMonth() {

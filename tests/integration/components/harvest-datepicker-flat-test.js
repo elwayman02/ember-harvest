@@ -11,14 +11,6 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{harvest-datepicker-flat}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#harvest-datepicker-flat}}
-      template block text
-    {{/harvest-datepicker-flat}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  let header = this.$('.eh-header');
+  assert.equal(header.length, 1);
 });

@@ -7,9 +7,30 @@ body {
 }
 
 main {
+  display: flex;
   padding: 8px;
+
+  .type {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+  }
 }
 
-.harvest-day-selected {
+.harvest-trigger {
+  margin: 4px 4px 0 0;
+}
+
+.harvest-selected-day {
   font-weight: bold;
+}
+
+.harvest-selected-week {
+  background: lightgray;
+}
+
+.harvest-weekpicker {
+  .harvest-selected-week {
+    background: yellow;
+  }
 }

@@ -22,7 +22,12 @@ export default EmberObject.extend({
 
   init() {
     this._super(...arguments);
-    this._setDate(new Date());
+    let date = this.get('date');
+    if (date) {
+      this.setDate(date);
+    } else {
+      this._setDate(new Date());
+    }
   },
 
   setDate(date) {
@@ -73,5 +78,16 @@ export default EmberObject.extend({
 
   decrementYear(number = 1) {
     this._modifyDate('FullYear', number * -1);
+  },
+
+  isEqual(otherDate) {
+    if (otherDate) {
+      let sameYear = otherDate.get('year') === this.get('year');
+      let sameMonth = otherDate.get('month') === this.get('month');
+      let sameDay = otherDate.get('day') === this.get('day');
+
+      return sameYear && sameMonth && sameDay;
+    }
+    return false;
   }
 });
