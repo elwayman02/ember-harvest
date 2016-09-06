@@ -50,6 +50,12 @@ export default EmberObject.extend({
     return date;
   },
 
+  setMonth(month) {
+    let date = this.get('_date');
+    date.setMonth(month);
+    this._setDate(date);
+  },
+
   _modifyDate(name, number = 1) {
     let date = this.get('_date');
     date[`set${name}`](date[`get${name}`]() + number);

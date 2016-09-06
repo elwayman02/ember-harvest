@@ -19,12 +19,17 @@ export default Component.extend({
 
   week: null,
 
-  selectedClass: computed('prefix', 'range', 'selectedRange', function () {
+  selectedClass: computed('prefix', 'isSelected', function () {
+    return this.get('isSelected') ? `${this.get('prefix')}-selected-week` : '';
+  }),
+
+  isSelected: computed('range', 'selectedRange', 'selectedDate', function () {
     let selectedRange = this.get('selectedRange');
-    if (selectedRange && isEqual(selectedRange, this.get('range'))) {
-      return `${this.get('prefix')}-selected-week`;
+    let range = this.get('range');
+    if (selectedRange) {
+      return selectedRange && isEqual(selectedRange, range);
     }
-    return '';
+    return range && range.inRange(this.get('selectedDate'));
   }),
 
   weekClass: computed('prefix', function () {
@@ -33,18 +38,29 @@ export default Component.extend({
 
   range: computed('week', function () {
     let week = this.get('week');
-    return DateRange.create({
-      startDate: week[0],
-      endDate: week[6]
-    });
+    if (week) {
+      return DateRange.create({
+        startDate: week[0],
+        endDate: week[6]
+      });
+    }
+    return null;
   }),
+
+  init() {
+    this._super(...arguments);
+
+    if (!this.get('selectedRange') && this.get('isSelected') && this.get('selectWeek')) {
+      this.get('selectWeek')(this.get('range'));
+    }
+  },
 
   actions: {
     selectDay(day) {
       if (this.get('selectDay')) {
         this.get('selectDay')(day);
       }
-      if (this.get('selectWeek')) {
+      if (this.get('selectWeek') && !this.get('isSelected')) {
         this.get('selectWeek')(this.get('range'));
       }
     }

@@ -11,7 +11,11 @@ export default Component.extend({
   prefix: 'eh',
   tagName: 'table',
 
+  attributeBindings: ['isHidden:hidden'],
+
   classNameBindings: ['calendarClass'],
+
+  isHidden: false,
 
   days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
 

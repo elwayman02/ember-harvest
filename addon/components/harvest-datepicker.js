@@ -9,7 +9,18 @@ export default Component.extend({
 
   isWeekpicker: false,
 
-  formattedDate: null,
+  formattedDate: computed('selectedDate', 'selectedRange', 'isWeekpicker', function () {
+    if (this.get('isWeekpicker')) {
+      let range = this.get('selectedRange');
+      if (range) {
+        return range.toString();
+      }
+    } else if (this.get('selectedDate')) {
+      return this.get('selectedDate').toLocaleDateString();
+    }
+    return '';
+  }),
+
   selectedDate: null,
   selectedRange: null,
 
@@ -19,24 +30,26 @@ export default Component.extend({
     return `${this.get('prefix')}-trigger`;
   }),
 
+  init() {
+    this._super(...arguments);
+
+    if (!this.get('selectedDate')) {
+      this.set('selectedDate', new Date());
+    }
+  },
+
   actions: {
     selectDay(day) {
       this.set('selectedDate', day);
-      if (!this.get('isWeekpicker')) {
-        this.set('formattedDate', day.toLocaleDateString());
-        if (this.get('select')) {
-          this.get('select')(day);
-        }
+      if (!this.get('isWeekpicker') && this.get('select')) {
+        this.get('select')(day);
       }
     },
 
     selectWeek(week) {
       this.set('selectedRange', week);
-      if (this.get('isWeekpicker')) {
-        this.set('formattedDate', week.toString());
-        if (this.get('select')) {
-          this.get('select')(week);
-        }
+      if (this.get('isWeekpicker') && this.get('select')) {
+        this.get('select')(week);
       }
     }
   }
