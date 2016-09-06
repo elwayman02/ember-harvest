@@ -13,11 +13,15 @@ export default Component.extend({
 
   isWeekpicker: false,
 
+  showMonthView: false,
+
   selectedDate: null,
 
   selectedRange: null,
 
   viewDate: null,
+
+  weekStart: 0,
 
   months: Months,
 
@@ -35,6 +39,10 @@ export default Component.extend({
     this.set('viewDate', DateObject.create());
     if (selectedDate) {
       this.setViewDate(selectedDate);
+    } else {
+      let date = new Date();
+      this.set('selectedDate', date);
+      this.setViewDate(date);
     }
   },
 
@@ -45,10 +53,6 @@ export default Component.extend({
   monthName: computed('month', 'months', function () {
     return this.get('months')[this.get('month')].name;
   }),
-
-  setToday() {
-    this.setViewDate(new Date());
-  },
 
   setViewDate(date) {
     this.set('viewDate.date', date);
@@ -64,6 +68,10 @@ export default Component.extend({
     }
   },
 
+  _selectMonth(month) {
+    this.get('viewDate').setMonth(month);
+  },
+
   _selectWeek(week) {
     if (this.get('selectWeek')) {
       this.get('selectWeek')(week);
@@ -72,7 +80,7 @@ export default Component.extend({
     }
   },
 
-  _prevMonth() {
+  _previousMonth() {
     this.get('viewDate').decrementMonth();
   },
 
@@ -80,21 +88,46 @@ export default Component.extend({
     this.get('viewDate').incrementMonth();
   },
 
+  _previousYear() {
+    this.get('viewDate').decrementYear();
+  },
+
+  _nextYear() {
+    this.get('viewDate').incrementYear();
+  },
+
   actions: {
     selectDay(day) {
       this._selectDate(day)
+    },
+
+    selectMonth(month) {
+      this._selectMonth(month);
+      this.set('showMonthView', false);
     },
 
     selectWeek(week) {
       this._selectWeek(week);
     },
 
-    prevMonth() {
-      this._prevMonth();
+    toggleMonthView() {
+      this.toggleProperty('showMonthView');
     },
 
-    nextMonth() {
-      this._nextMonth();
+    previous() {
+      if (this.get('showMonthView')) {
+        this._previousYear();
+      } else {
+        this._previousMonth();
+      }
+    },
+
+    next() {
+      if (this.get('showMonthView')) {
+        this._nextYear();
+      } else {
+        this._nextMonth();
+      }
     }
   }
 });

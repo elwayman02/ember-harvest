@@ -49,6 +49,35 @@ export default EmberObject.extend({
     });
   },
 
+  inRange(date) {
+    let year, month, day;
+    if (date instanceof Date) {
+      year = date.getFullYear();
+      month = date.getMonth();
+      day = date.getDate();
+    } else if (date instanceof DateObject) {
+      year = date.get('year');
+      month = date.get('month');
+      day = date.get('day');
+    } else {
+      return false;
+    }
+
+    let startYear = this.get('startDate.year');
+    let startMonth = this.get('startDate.month');
+    let startDay = this.get('startDate.day');
+
+    let endYear = this.get('endDate.year');
+    let endMonth = this.get('endDate.month');
+    let endDay = this.get('endDate.day');
+
+    let inYear = year >= startYear && year <= endYear;
+    let inMonth = (month >= startMonth || year > startYear) && (month <= endMonth || year < endYear);
+    let inDay = (day >= startDay || month > startMonth) && (day <= endDay || month < endMonth);
+
+    return inYear && inMonth && inDay;
+  },
+
   toString() {
     let startDate = this.get('startDate.date');
     let endDate = this.get('endDate.date');

@@ -1,17 +1,31 @@
 <div class="{{prefix}}-header">
   <div class="{{prefix}}-top-panel">
     <div class="{{prefix}}-navigation">
-      <button {{action "prevMonth"}}>&lt;</button>
-      <button>{{monthName}} {{year}}</button>
-      <button {{action "nextMonth"}}>&gt;</button>
+      <button {{action 'previous'}}>&lt;</button>
+      <button {{action 'toggleMonthView'}}>
+        {{#if showMonthView}}
+          {{year}}
+        {{else}}
+          {{monthName}} {{year}}
+        {{/if}}
+      </button>
+      <button {{action 'next'}}>&gt;</button>
     </div>
   </div>
 </div>
 {{harvest-calendar-view
+    isHidden=showMonthView
     prefix=prefix
     selectDay=(action 'selectDay')
     selectWeek=(action 'selectWeek')
     selectedDate=selectedDate
     selectedRange=selectedRange
     viewDate=viewDate
+    weekStart=weekStart
+}}
+{{harvest-month-view
+    isHidden=(not showMonthView)
+    prefix=prefix
+    selectedMonth=month
+    select=(action 'selectMonth')
 }}

@@ -1,0 +1,14 @@
+<tbody class="{{prefix}}-month-list">
+{{#each monthRows as |months|}}
+  <tr>
+    {{#each months as |month|}}
+      {{harvest-month
+          month=month
+          prefix=prefix
+          selectedMonth=selectedMonth
+          select=(action 'select')
+      }}
+    {{/each}}
+  </tr>
+{{/each}}
+</tbody>
