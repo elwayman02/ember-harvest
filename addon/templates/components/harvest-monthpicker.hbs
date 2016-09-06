@@ -1,0 +1,17 @@
+{{#basic-dropdown as |dropdown|}}
+  {{#dropdown.trigger}}
+    {{#if hasBlock}}
+      {{yield}}
+    {{else}}
+      <input class="{{inputClass}}" value={{formattedMonth}}>
+    {{/if}}
+  {{/dropdown.trigger}}
+  {{#dropdown.content}}
+    {{harvest-monthpicker-flat
+        prefix=prefix
+        selectedMonth=selectedMonth
+        selectedYear=selectedYear
+        select=(action 'select')
+    }}
+  {{/dropdown.content}}
+{{/basic-dropdown}}

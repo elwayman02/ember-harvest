@@ -1,0 +1,12 @@
+{{#harvest-picker-header
+    prefix=prefix
+    previous=(action 'previous')
+    next=(action 'next')
+}}
+  {{viewYear.year}}
+{{/harvest-picker-header}}
+{{harvest-month-view
+    prefix=prefix
+    selectedMonth=month
+    select=(action 'select')
+}}

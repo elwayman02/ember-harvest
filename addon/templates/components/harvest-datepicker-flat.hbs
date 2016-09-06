@@ -1,18 +1,15 @@
-<div class="{{prefix}}-header">
-  <div class="{{prefix}}-top-panel">
-    <div class="{{prefix}}-navigation">
-      <button {{action 'previous'}}>&lt;</button>
-      <button {{action 'toggleMonthView'}}>
-        {{#if showMonthView}}
-          {{year}}
-        {{else}}
-          {{monthName}} {{year}}
-        {{/if}}
-      </button>
-      <button {{action 'next'}}>&gt;</button>
-    </div>
-  </div>
-</div>
+{{#harvest-picker-header
+    prefix=prefix
+    previous=(action 'previous')
+    next=(action 'next')
+    toggleView=(action 'toggleView')
+}}
+  {{#if showMonthView}}
+    {{year}}
+  {{else}}
+    {{monthName}} {{year}}
+  {{/if}}
+{{/harvest-picker-header}}
 {{harvest-calendar-view
     isHidden=showMonthView
     prefix=prefix
