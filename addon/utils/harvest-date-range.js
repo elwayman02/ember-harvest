@@ -44,9 +44,11 @@ export default EmberObject.extend({
   },
 
   _createDate(date) {
-    return DateObject.create({
-      date: date
-    });
+    if (date) {
+      return DateObject.create({
+        date: date
+      });
+    }
   },
 
   inRange(date) {
@@ -63,28 +65,38 @@ export default EmberObject.extend({
       return false;
     }
 
-    let startYear = this.get('startDate.year');
-    let startMonth = this.get('startDate.month');
-    let startDay = this.get('startDate.day');
+    let startDate = this.get('startDate');
+    let endDate = this.get('endDate');
 
-    let endYear = this.get('endDate.year');
-    let endMonth = this.get('endDate.month');
-    let endDay = this.get('endDate.day');
-
-    let inYear = year >= startYear && year <= endYear;
-    let inMonth = (month >= startMonth || year > startYear) && (month <= endMonth || year < endYear);
-    let inDay = (day >= startDay || month > startMonth) && (day <= endDay || month < endMonth);
-
-    return inYear && inMonth && inDay;
-  },
-
-  toString() {
-    let startDate = this.get('startDate.date');
-    let endDate = this.get('endDate.date');
-    if (startDate || endDate) {
-      return `${startDate ? startDate.toLocaleDateString() : ''} - ${endDate ? endDate.toLocaleDateString() : ''}`;
+    let startYear, startMonth, startDay;
+    if (startDate) {
+      startYear = startDate.get('year');
+      startMonth = startDate.get('month');
+      startDay = startDate.get('day');
     }
-    return '';
+
+    let endYear, endMonth, endDay;
+    if (endDate) {
+      endYear = endDate.get('year');
+      endMonth = endDate.get('month');
+      endDay = endDate.get('day');
+    }
+
+    if (startDate && endDate) {
+      let inYear = year >= startYear && year <= endYear;
+      let inMonth = (month >= startMonth || year > startYear) && (month <= endMonth || year < endYear);
+      let inDay = (day >= startDay || month > startMonth) && (day <= endDay || month < endMonth);
+      return inYear && inMonth && inDay;
+    } else if (startDate) {
+      return year >= startYear &&
+        (month >= startMonth || year > startYear) &&
+        (day >= startDay || month > startMonth);
+    } else if (endDate) {
+      return year <= endYear &&
+        (month <= endMonth || year < endYear) &&
+        (day <= endDay || month < endMonth);
+    }
+    return true; // range is empty o.O
   },
 
   isEqual(otherRange) {
@@ -95,5 +107,14 @@ export default EmberObject.extend({
       return sameStart && sameEnd;
     }
     return false;
+  },
+
+  toString() {
+    let startDate = this.get('startDate.date');
+    let endDate = this.get('endDate.date');
+    if (startDate || endDate) {
+      return `${startDate ? startDate.toLocaleDateString() : ''} - ${endDate ? endDate.toLocaleDateString() : ''}`;
+    }
+    return '';
   }
 });

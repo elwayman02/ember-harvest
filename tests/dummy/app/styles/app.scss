@@ -21,9 +21,18 @@ main {
   margin: 4px 4px 0 0;
 }
 
+.harvest-day {
+  cursor: pointer;
+}
+
 .harvest-selected-day,
 .harvest-selected-month {
   font-weight: bold;
+}
+
+.harvest-disabled-day {
+  color: lightslategray;
+  cursor: not-allowed;
 }
 
 .harvest-selected-week {

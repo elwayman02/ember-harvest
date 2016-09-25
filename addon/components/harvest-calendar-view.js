@@ -3,6 +3,7 @@ import EmberObject from 'ember-object';
 import computed from 'ember-computed';
 import { A } from 'ember-array/utils';
 import DateObject from '../utils/harvest-date';
+import DateRange from '../utils/harvest-date-range';
 import Months from '../utils/harvest-months';
 import layout from '../templates/components/harvest-calendar-view';
 
@@ -25,6 +26,10 @@ export default Component.extend({
 
   numberOfWeeks: 6, // TODO: Set this dynamically to not show too many extra days
 
+  minDate: null,
+
+  maxDate: null,
+
   selectedDate: null,
 
   selectedRange: null,
@@ -46,6 +51,19 @@ export default Component.extend({
       this.set('displayDate', DateObject.create());
     }
   },
+
+  allowedRange: computed('minDate', 'maxDate', function () {
+    let minDate = this.get('minDate');
+    let maxDate = this.get('maxDate');
+
+    if (minDate || maxDate) {
+      return DateRange.create({
+        startDate: minDate,
+        endDate: maxDate
+      });
+    }
+    return null;
+  }),
 
   daysOfWeek: computed('weekStart', 'days', function () {
     let array = A();
@@ -113,7 +131,9 @@ export default Component.extend({
         }
         week.pushObject(EmberObject.create(dayObj));
       }
-      weeksArray.pushObject(week);
+      if (week[0].inRange || week[6].inRange) { // TODO: Actually fix the above algorithm to exclude extra weeks
+        weeksArray.pushObject(week);
+      }
     }
     return weeksArray;
   }),

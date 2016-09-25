@@ -9,7 +9,17 @@ export default Component.extend({
 
   prefix: 'eh',
 
-  classNameBindings: ['outOfRangeClass', 'selectedClass', 'todayClass', 'weekendClass'],
+  allowedRange: null,
+
+  classNameBindings: ['dayClass', 'disabledClass', 'outOfRangeClass', 'selectedClass', 'todayClass', 'weekendClass'],
+
+  dayClass: computed('prefix', function () {
+    return `${this.get('prefix')}-day`;
+  }),
+
+  disabledClass: computed('isDisabled', 'prefix', function () {
+    return this.get('isDisabled') ? `${this.get('prefix')}-disabled-day` : '';
+  }),
 
   selectedClass: computed('daySelected', 'prefix', function () {
     return this.get('daySelected') ? `${this.get('prefix')}-selected-day` : '';
@@ -25,6 +35,15 @@ export default Component.extend({
 
   weekendClass: computed('weekend', 'prefix', function () {
     return this.get('weekend') ? `${this.get('prefix')}-weekend` : '';
+  }),
+
+  date: computed('model.year', 'model.month', 'model.date', function () {
+    return new Date(this.get('model.year'), this.get('model.month'), this.get('model.date'));
+  }),
+
+  isDisabled: computed('allowedRange', 'date', function () {
+    let range = this.get('allowedRange');
+    return range ? !range.inRange(this.get('date')) : false;
   }),
 
   daySelected: computed('selectedDate', 'model.year', 'model.month', 'model.date', function () {
@@ -69,6 +88,8 @@ export default Component.extend({
   }),
 
   click() {
-    this.get('select')(this.get('model'));
+    if (!this.get('isDisabled')) {
+      this.get('select')(this.get('model'));
+    }
   }
 });
