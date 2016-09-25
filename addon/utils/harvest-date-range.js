@@ -45,9 +45,7 @@ export default EmberObject.extend({
 
   _createDate(date) {
     if (date) {
-      return DateObject.create({
-        date: date
-      });
+      return DateObject.create({ date });
     }
   },
 
