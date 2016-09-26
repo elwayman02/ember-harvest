@@ -98,7 +98,7 @@ export default Component.extend({
 
   actions: {
     selectDay(day) {
-      this._selectDate(day)
+      this._selectDate(day);
     },
 
     selectMonth(month) {

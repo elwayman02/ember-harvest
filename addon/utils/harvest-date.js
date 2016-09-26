@@ -31,12 +31,16 @@ export default EmberObject.extend({
   },
 
   setDate(date) {
-    if (typeOf(date) === 'string') {
-      date = date.replace(/-/g, '/');
+    if (date === 'today') {
+      date = new Date();
+    } else if (typeOf(date) === 'string') {
+      date = new Date(date.replace(/-/g, '/'));
     } else if (typeOf(date) === 'instance') {
       date = new Date(date.get('year'), date.get('month'), date.get('date'));
+    } else {
+      date = new Date(date);
     }
-    return this._setDate(new Date(date));
+    return this._setDate(date);
   },
 
   _setDate(date) {

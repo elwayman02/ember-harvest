@@ -1,10 +1,7 @@
-import Ember from 'ember';
 import Component from 'ember-component';
 import computed from 'ember-computed';
 import DateRange from '../utils/harvest-date-range';
 import layout from '../templates/components/harvest-week';
-
-const { isEqual } = Ember;
 
 export default Component.extend({
   layout,
@@ -12,6 +9,8 @@ export default Component.extend({
   tagName: 'tr',
 
   prefix: 'eh',
+
+  allowedRange: null,
 
   selectedDate: null,
 
@@ -27,7 +26,7 @@ export default Component.extend({
     let selectedRange = this.get('selectedRange');
     let range = this.get('range');
     if (selectedRange) {
-      return selectedRange && isEqual(selectedRange, range);
+      return selectedRange.inRange(range.get('startDate')) || selectedRange.inRange(range.get('endDate'));
     }
     return range && range.inRange(this.get('selectedDate'));
   }),
