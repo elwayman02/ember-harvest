@@ -3,7 +3,7 @@
     {{#if hasBlock}}
       {{yield}}
     {{else}}
-      <input class="{{inputClass}}" value={{formattedDate}}>
+      <input class="{{inputClass}}" value={{formattedDate}} disabled={{disableInput}}>
     {{/if}}
   {{/dropdown.trigger}}
   {{#dropdown.content}}

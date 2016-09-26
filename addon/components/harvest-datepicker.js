@@ -9,6 +9,8 @@ export default Component.extend({
 
   isWeekpicker: false,
 
+  disableInput: false,
+
   formattedDate: computed('selectedDate', 'selectedRange', 'isWeekpicker', function () {
     if (this.get('isWeekpicker')) {
       let range = this.get('selectedRange');
