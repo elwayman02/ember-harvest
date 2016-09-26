@@ -8,6 +8,8 @@ export default Component.extend({
 
   prefix: 'eh',
 
+  disableInput: false,
+
   selectedMonth: null,
 
   selectedYear: null,
